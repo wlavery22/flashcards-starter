@@ -46,21 +46,23 @@ const createRound = (deck, currentCardIndex = 0, turns = 0, incorrectGuesses = [
 const takeTurn = (guess, roundObj) => {
   // roundObj.currentCard.deck[currentCardIndex] += 1;
   const result = evaluateGuess(guess, roundObj.currentCard.correctAnswer);
-  console.log("before:", roundObj.incorrectGuesses)
+  // console.log("before:", roundObj.incorrectGuesses)
   if (result === "Incorrect"); {
     roundObj.incorrectGuesses.push(roundObj.currentCard.id)
   }
   roundObj.turns += 1;
   roundObj.currentCardIndex += 1;
   roundObj.currentCard = roundObj.deck[roundObj.currentCardIndex];
-  console.log("after:", roundObj.incorrectGuesses);
+  // console.log("after:", roundObj.incorrectGuesses);
 }
 
 function calculatePercentCorrect(round) {
   const totalGuesses = round.deck.length;
+  const totalIncorrectGuesses = round.incorrectGuesses.length;
   const correctGuesses = totalGuesses - round.incorrectGuesses.length;
-  correctGuesses / totalGuesses 
-  
+  const percentCorrect = Math.round((correctGuesses / totalGuesses) * 100)
+  console.log(percentCorrect)
+  return percentCorrect
 }
 
 // console.log('Your project is running...'); 
@@ -94,7 +96,6 @@ function calculatePercentCorrect(round) {
 // Feedback is returned regarding whether the guess is incorrect or correct
 // calculatePercentCorrect(round): calculates and returns the percentage of correct guesses
 // endRound(round): prints the following to the console: ‘** Round over! ** You answered <>% of the questions correctly!’
-
 // const card1 = createCard(1, 'What is Robbie\'s favorite animal', ['sea otter', 'pug', 'capybara'], 'sea otter');
 // const card2 = createCard(14, 'What organ is Khalid missing?', ['spleen', 'appendix', 'gallbladder'], 'gallbladder');
 // const card3 = createCard(12, 'What is Travis\'s favorite stress reliever?', ['listening to music', 'watching Netflix', 'playing with bubble wrap'], 'playing with bubble wrap');
@@ -125,7 +126,8 @@ module.exports = {
   createDeck,
   countCards,
   takeTurn, 
-  createRound
+  createRound,
+  calculatePercentCorrect
 }
 
   // if (guess === correctAnswer) {
