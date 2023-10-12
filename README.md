@@ -1,3 +1,12 @@
+Abstract at the top (A sentence or two describing the project)
+A GIF of the working application
+Technologies used
+Install/Setup instructions
+
+Abstract: This project allows users to play a game by answering a question, finding out if their answer was correct, recording incorrect answers, advancing turns, and finally giving the player their percentage of correct answers.
+
+
+
 # FlashCards Starter Kit
 
 ## Fork This Repo

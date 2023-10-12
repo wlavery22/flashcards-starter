@@ -8,21 +8,11 @@ const createCard = (id, question, answers, correctAnswer) => {
   return card;
 } 
 
-const evaluateGuess = (guess, correctAnswer) => {
-  if (guess === correctAnswer) {
-    return 'Correct'
-  } else {
-    return 'Incorrect'
-  }
-}
-
 const createDeck = (cardObjArr) => {
   let deck = {
     deck: cardObjArr
   }
   return deck.deck;
-  // }
-  // console.log(deck)
   // return deck.deck;
   // return cardObjArr
 } 
@@ -31,40 +21,78 @@ const countCards = (deckObjArr) => {
   return deckObjArr.length;
 }
 
-const createRound = (deck, currentCardIndex = 0, turns = 0, incorrectGuesses = []) => {
+const createRound = (deck) => {
   let round = {
     deck: deck,
-    currentCard: deck[currentCardIndex],
-    turns: turns,
-    incorrectGuesses: incorrectGuesses,
-    currentCardIndex: currentCardIndex
+    currentCard: deck[0],
+    turns: 0,
+    incorrectGuesses: [],
+    // currentCardIndex: currentCardIndex
   }
-  // round.currentCard = currentCardIndex
+  console.log('LABEL:', round.currentCard.id)
+  // currentCardIndex = 0, turns = 0, incorrectGuesses = []
+  // round.currentCard = round.deck[round.turns]
   return round;
 }
 
-const takeTurn = (guess, roundObj) => {
-  // roundObj.currentCard.deck[currentCardIndex] += 1;
-  const result = evaluateGuess(guess, roundObj.currentCard.correctAnswer);
-  // console.log("before:", roundObj.incorrectGuesses)
+const takeTurn = (guess, round) => {
+  // round.currentCard.deck[currentCardIndex] += 1;
+  round.turns += 1;
+  round.currentCard = round.deck[round.turns]
+  const result = evaluateGuess(guess, round);
   if (result === "Incorrect"); {
-    roundObj.incorrectGuesses.push(roundObj.currentCard.id)
+    round.incorrectGuesses.push(round.currentCard.id)
   }
-  roundObj.turns += 1;
-  roundObj.currentCardIndex += 1;
-  roundObj.currentCard = roundObj.deck[roundObj.currentCardIndex];
-  // console.log("after:", roundObj.incorrectGuesses);
+  // round.currentCardIndex += 1;
+  round.currentCard = round.deck[round.turns];
+  return round;
 }
 
+const evaluateGuess = (guess, round) => {
+  console.log('ROUND:', round);
+  if (guess === round.currentCard.correctAnswer) {
+    return 'Correct'
+  } else {
+    return 'Incorrect'
+  }
+};
+// should be bracket notation in the takeTurn function to get hold of the currentCardIndex
 function calculatePercentCorrect(round) {
   const totalGuesses = round.deck.length;
   const totalIncorrectGuesses = round.incorrectGuesses.length;
-  const correctGuesses = totalGuesses - round.incorrectGuesses.length;
+  const correctGuesses = totalGuesses - totalIncorrectGuesses;
   const percentCorrect = Math.round((correctGuesses / totalGuesses) * 100)
-  console.log(percentCorrect)
+  // console.log(percentCorrect)
   return percentCorrect
 }
 
+module.exports = {
+  createCard,
+  evaluateGuess,
+  createDeck,
+  countCards,
+  takeTurn, 
+  createRound,
+  calculatePercentCorrect
+}
+
+// const createRound = (deck) => {
+//   let round = {
+//     deck: deck,
+//     currentCard: deck[0],
+//     turns: 0,
+//     incorrectGuesses: [],
+//     // currentCardIndex: currentCardIndex
+//   }
+//   console.log(round.currentCard)
+//   // currentCardIndex = 0, turns = 0, incorrectGuesses = []
+//   round.currentCard = deck.currentCardIndex
+//   console.log(round.currentCard)
+//   return round;
+// }
+
+// const totalIncorrectGuesses = round.incorrectGuesses.length;
+// const correctGuesses = totalGuesses - totalIncorrectGuesses;
 // console.log('Your project is running...'); 
 // const calculatePercentCorrect = round => {
 //   const numOfQuestions = countCards(round.deck);
@@ -119,16 +147,6 @@ function calculatePercentCorrect(round) {
             	      //      correctAnswer: 'playing with bubble wrap'
             	      //    }
 // calculatePercentCorrect(round);  // => 50
-
-module.exports = {
-  createCard,
-  evaluateGuess,
-  createDeck,
-  countCards,
-  takeTurn, 
-  createRound,
-  calculatePercentCorrect
-}
 
   // if (guess === correctAnswer) {
   //   console.log('Correct!')
