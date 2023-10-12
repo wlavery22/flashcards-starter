@@ -29,7 +29,7 @@ const createRound = (deck) => {
     incorrectGuesses: [],
     // currentCardIndex: currentCardIndex
   }
-  console.log('LABEL:', round.currentCard.id)
+  // console.log('LABEL:', round.currentCard.id)
   // currentCardIndex = 0, turns = 0, incorrectGuesses = []
   // round.currentCard = round.deck[round.turns]
   return round;
@@ -38,9 +38,11 @@ const createRound = (deck) => {
 const takeTurn = (guess, round) => {
   // round.currentCard.deck[currentCardIndex] += 1;
   round.turns += 1;
-  round.currentCard = round.deck[round.turns]
+  // console.log('LABEL:', round.turns)
+  round.currentCard = round.deck[round.turns - 1]
   const result = evaluateGuess(guess, round);
-  if (result === "Incorrect"); {
+  console.log(result);
+  if (result === "Incorrect") {
     round.incorrectGuesses.push(round.currentCard.id)
   }
   // round.currentCardIndex += 1;
@@ -49,7 +51,7 @@ const takeTurn = (guess, round) => {
 }
 
 const evaluateGuess = (guess, round) => {
-  console.log('ROUND:', round);
+  // console.log('ROUND:', round);
   if (guess === round.currentCard.correctAnswer) {
     return 'Correct'
   } else {
@@ -61,6 +63,7 @@ function calculatePercentCorrect(round) {
   const totalGuesses = round.deck.length;
   const totalIncorrectGuesses = round.incorrectGuesses.length;
   const correctGuesses = totalGuesses - totalIncorrectGuesses;
+  console.log(round, totalIncorrectGuesses, correctGuesses)
   const percentCorrect = Math.round((correctGuesses / totalGuesses) * 100)
   // console.log(percentCorrect)
   return percentCorrect

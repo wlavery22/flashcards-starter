@@ -30,7 +30,10 @@ describe('evaluateGuess', function() {
         answers: ["because", "it's there", "IDK!"],
         correctAnswer: "because"
       };
-      const guessCorrect = evaluateGuess(userGuess, card.correctAnswer);
+      const round = {
+        currentCard: card
+      }
+      const guessCorrect = evaluateGuess(userGuess, round);
       // const user = userGuess('object')
       // evaluateGuess(user, card);
       expect(guessCorrect).to.equal('Correct');
@@ -97,7 +100,7 @@ describe('calculatePercentCorrect', function() {
     const percent = calculatePercentCorrect(round)
     // (round.deck.length) - (round.incorrectGuesses.length) = correct guesses, divide correct guesses by total guesses, * 100 = percent correct
     // console.log({percent})
-    expect(percent).to.equal("33");
+    expect(percent).to.equal(33);
   });
 });
    
