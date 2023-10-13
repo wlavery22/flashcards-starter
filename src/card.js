@@ -13,8 +13,6 @@ const createDeck = (cardObjArr) => {
     deck: cardObjArr
   }
   return deck.deck;
-  // return deck.deck;
-  // return cardObjArr
 } 
 
 const countCards = (deckObjArr) => {
@@ -27,47 +25,43 @@ const createRound = (deck) => {
     currentCard: deck[0],
     turns: 0,
     incorrectGuesses: [],
-    // currentCardIndex: currentCardIndex
   }
-  // console.log('LABEL:', round.currentCard.id)
-  // currentCardIndex = 0, turns = 0, incorrectGuesses = []
-  // round.currentCard = round.deck[round.turns]
   return round;
 }
 
 const takeTurn = (guess, round) => {
-  // round.currentCard.deck[currentCardIndex] += 1;
   round.turns += 1;
-  // console.log('LABEL:', round.turns)
   round.currentCard = round.deck[round.turns - 1]
   const result = evaluateGuess(guess, round);
   console.log(result);
   if (result === "Incorrect") {
     round.incorrectGuesses.push(round.currentCard.id)
   }
-  // round.currentCardIndex += 1;
   round.currentCard = round.deck[round.turns];
   return round;
 }
 
 const evaluateGuess = (guess, round) => {
-  // console.log('ROUND:', round);
   if (guess === round.currentCard.correctAnswer) {
     return 'Correct'
   } else {
     return 'Incorrect'
   }
 };
-// should be bracket notation in the takeTurn function to get hold of the currentCardIndex
+
+const endRound = (round) => {
+  console.log(`** Round over! ** You answered`)
+}
+
 function calculatePercentCorrect(round) {
   const totalGuesses = round.deck.length;
   const totalIncorrectGuesses = round.incorrectGuesses.length;
   const correctGuesses = totalGuesses - totalIncorrectGuesses;
-  console.log(round, totalIncorrectGuesses, correctGuesses)
   const percentCorrect = Math.round((correctGuesses / totalGuesses) * 100)
-  // console.log(percentCorrect)
   return percentCorrect
 }
+
+// endRound(round): prints the following to the console: ‘** Round over! ** You answered <>% of the questions correctly!’
 
 module.exports = {
   createCard,

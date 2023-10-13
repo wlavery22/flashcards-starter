@@ -34,8 +34,6 @@ describe('evaluateGuess', function() {
         currentCard: card
       }
       const guessCorrect = evaluateGuess(userGuess, round);
-      // const user = userGuess('object')
-      // evaluateGuess(user, card);
       expect(guessCorrect).to.equal('Correct');
     });
   });
@@ -66,7 +64,6 @@ describe('deck', function() {
     expect(round.currentCard).to.equal(card1);
     expect(round.turns).to.equal(0);
     expect(round.incorrectGuesses).to.deep.equal([]);
-    // expect(round.currentCardIndex).to.equal(0);
   });
 });
   
@@ -98,12 +95,7 @@ describe('calculatePercentCorrect', function() {
     takeTurn('gallbladder', round);
     takeTurn('Lex', round);
     const percent = calculatePercentCorrect(round)
-    // (round.deck.length) - (round.incorrectGuesses.length) = correct guesses, divide correct guesses by total guesses, * 100 = percent correct
-    // console.log({percent})
     expect(percent).to.equal(33);
   });
 });
    
-// Setup - Setup the conditions required to execute the action on your subject
-// Execution - Execute some action on your subject
-// Assertion - Assert that the action you did had the results you expect
